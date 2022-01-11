@@ -1,2 +1,6 @@
-"# x_and_o-s" 
-This is just me trying to figure out how to make a tic tac toe game in python. Bare with me, I'm still learning. More will be added to this file when I have mroe to add.
+# x_and_o-s
+This is the result of me trying to make a tic-tac-toe audio game in python.
+## What can you do in the game thus far?
+For now, you can move around the empty grid with your arrow keys and place crosses every where.
+Currently the game only supports speech with NVDA. More screen readers will be added when the main part of the game is complete.
+I hope you enjoy.
