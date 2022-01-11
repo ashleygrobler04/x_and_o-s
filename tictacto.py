@@ -32,7 +32,7 @@ def getpos(x,y):
         speak("B")
     elif x==2:
         speak("C")
-    speak(f"{y}")
+    speak(f"{y+1}")
 
 class player:
     def __init__(self):
