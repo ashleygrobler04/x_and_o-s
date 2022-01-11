@@ -6,7 +6,7 @@ pygame.init()
 screen=pygame.display.set_mode((400,600))
 pygame.display.set_caption("2D Grid Testing")
 
-grid=[[-1,-1,-1], [1,1,1], [0,0,0]]
+grid=[[-1,-1,-1], [-1,-1,-1], [-1,-1,-1]]
 
 def checkTile(x,y):
     if grid[x][y]==-1:
@@ -16,6 +16,11 @@ def checkTile(x,y):
     elif grid[x][y]==1:
         return "o"
 
+def placeObject(x,y,type):
+    if grid[x][y]==-1:
+        grid[x][y]=type
+    else:
+        speak("Something's already on that square.")
 def speak(text):
     with tolk.tolk():
         tolk.speak(text)
@@ -43,6 +48,8 @@ while running:
             elif event.key==pygame.K_RIGHT and p.x<2:
                 p.x+=1
                 speak(f"{checkTile(p.x,p.y)}")
+            elif event.key==pygame.K_RETURN:
+                placeObject(p.x,p.y,0)
             if event.key==pygame.K_q:
                 pygame.QUIT()
                 quit()
