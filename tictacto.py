@@ -1,7 +1,6 @@
-import pygame, time
+import pygame, time, os
 from cytolk import tolk
-from pygame import key
-from pygame.constants import KEYDOWN
+os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "hide"
 pygame.init()
 screen=pygame.display.set_mode((400,600))
 pygame.display.set_caption("2D Grid Testing")
@@ -26,6 +25,15 @@ def speak(text):
     with tolk.tolk():
         tolk.speak(text)
 
+def getpos(x,y):
+    if x==0:
+        speak("A")
+    elif x==1:
+        speak("B")
+    elif x==2:
+        speak("C")
+    speak(f"{y}")
+
 class player:
     def __init__(self):
         self.x=0
@@ -39,15 +47,19 @@ while running:
         if event.type==pygame.KEYDOWN:
             if event.key==pygame.K_UP and p.y<2:
                 p.y+=1
+                getpos(p.x,p.y)
                 speak(f"{checkTile(p.x,p.y)}")
             elif event.key==pygame.K_DOWN and p.y>0:
                 p.y-=1
+                getpos(p.x,p.y)
                 speak(f"{checkTile(p.x,p.y)}")
             elif event.key==pygame.K_LEFT and p.x>0:
                 p.x-=1
+                getpos(p.x,p.y)
                 speak(f"{checkTile(p.x,p.y)}")
             elif event.key==pygame.K_RIGHT and p.x<2:
                 p.x+=1
+                getpos(p.x,p.y)
                 speak(f"{checkTile(p.x,p.y)}")
             elif event.key==pygame.K_RETURN:
                 placeObject(p.x,p.y,0)
