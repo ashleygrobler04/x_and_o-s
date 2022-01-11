@@ -19,6 +19,7 @@ def checkTile(x,y):
 def placeObject(x,y,type):
     if grid[x][y]==-1:
         grid[x][y]=type
+        speak("Object placed.")
     else:
         speak("Something's already on that square.")
 def speak(text):
