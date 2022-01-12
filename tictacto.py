@@ -44,6 +44,40 @@ p1=player('player1', 0)
 p2=player('player2', 1)
 p=p1
 
+def display_message(message):
+    speak(message)
+    displaying=True
+    while displaying:
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_UP or event.key == pygame.K_DOWN or event.key == pygame.K_RIGHT or event.key == pygame.K_LEFT:
+                    speak(message)
+                if event.key == pygame.K_SPACE or event.key == pygame.K_RETURN or event.key == pygame.K_ESCAPE:
+                    displaying=False
+                
+
+def winloop():
+    horizontal1=grid[0]
+    horizontal2=grid[1]
+    horizontal3=grid[2]
+    vertical1=[grid[0][0], grid[1][0], grid[2][0]]
+    vertical2=[grid[0][1], grid[1][1], grid[2][1]]
+    vertical3=[grid[0][2], grid[1][2], grid[2][2]]
+    diagonal1=[grid[0][0],grid[1][1],grid[2][2]]
+    diagonal2=[grid[0][2],grid[1][1],grid[2][0]]
+    x=[0,0,0]
+    o=[1,1,1]
+    if horizontal1 == x or horizontal2 == x or horizontal3 == x or vertical1 == x or vertical2 == x or vertical3 == x or diagonal1 == x or diagonal2 == x:
+        display_message('player1 is the winner')
+        pygame.quit()
+        quit()
+    elif horizontal1 == o or horizontal2 == o or horizontal3 == o or vertical1 == o or vertical2 == o or vertical3 == o or diagonal1 == o or diagonal2 == o:
+        display_message('player2 is the winner')
+        pygame.quit()
+        quit()
+    else:
+        pass
 
 running=True
 while running:
@@ -78,3 +112,4 @@ while running:
                 pygame.QUIT()
                 quit()
                 running=False
+    winloop()
