@@ -5,34 +5,35 @@ pygame.init()
 screen=pygame.display.set_mode((400,600))
 pygame.display.set_caption("2D Grid Testing")
 
-grid=[[-1,-1,-1], [-1,-1,-1], [-1,-1,-1]]
-
-def checkTile(x,y):
-    if grid[x][y]==-1:
-        return "empty"
-    elif grid[x][y] ==0:
-        return "x"
-    elif grid[x][y]==1:
-        return "o"
-
-def placeObject(x,y,type):
-    if grid[x][y]==-1:
-        grid[x][y]=type
-        speak("Object placed.")
-    else:
-        speak("Something's already on that square.")
 def speak(text):
     with tolk.tolk():
         tolk.speak(text)
 
-def getpos(x,y):
-    if x==0:
-        speak("A")
-    elif x==1:
-        speak("B")
-    elif x==2:
-        speak("C")
-    speak(f"{y+1}")
+class bord:
+    def __init__(self):
+        self.squares=[[-1,-1,-1], [-1,-1,-1], [-1,-1,-1]]
+    def checkTile(self,x,y):
+        if self.squares[x][y]==-1:
+            return "empty"
+        elif self.squares[x][y] ==0:
+            return "x"
+        elif self.squares[x][y]==1:
+            return "o"
+
+    def placeObject(self, x,y,type):
+        if self.squares[x][y]==-1:
+            self.squares[x][y]=type
+            speak("Object placed.")
+        else:
+            speak("Something's already on that square.")
+    def getpos(self, x,y):
+        if x==0:
+            speak("A")
+        elif x==1:
+            speak("B")
+        elif x==2:
+            speak("C")
+        speak(f"{y+1}")
 
 class player:
     def __init__(self, name, obj):
@@ -43,7 +44,7 @@ class player:
 p1=player('player1', 0)
 p2=player('player2', 1)
 p=p1
-
+Grid=bord()
 def display_message(message):
     speak(message)
     displaying=True
@@ -58,14 +59,14 @@ def display_message(message):
                 
 
 def winloop():
-    horizontal1=grid[0]
-    horizontal2=grid[1]
-    horizontal3=grid[2]
-    vertical1=[grid[0][0], grid[1][0], grid[2][0]]
-    vertical2=[grid[0][1], grid[1][1], grid[2][1]]
-    vertical3=[grid[0][2], grid[1][2], grid[2][2]]
-    diagonal1=[grid[0][0],grid[1][1],grid[2][2]]
-    diagonal2=[grid[0][2],grid[1][1],grid[2][0]]
+    horizontal1=Grid.squares[0]
+    horizontal2=Grid.squares[1]
+    horizontal3=Grid.squares[2]
+    vertical1=[Grid.squares[0][0], Grid.squares[1][0], Grid.squares[2][0]]
+    vertical2=[Grid.squares[0][1], Grid.squares[1][1], Grid.squares[2][1]]
+    vertical3=[Grid.squares[0][2], Grid.squares[1][2], Grid.squares[2][2]]
+    diagonal1=[Grid.squares[0][0],Grid.squares[1][1],Grid.squares[2][2]]
+    diagonal2=[Grid.squares[0][2],Grid.squares[1][1],Grid.squares[2][0]]
     x=[0,0,0]
     o=[1,1,1]
     if horizontal1 == x or horizontal2 == x or horizontal3 == x or vertical1 == x or vertical2 == x or vertical3 == x or diagonal1 == x or diagonal2 == x:
@@ -87,22 +88,22 @@ while running:
         if event.type==pygame.KEYDOWN:
             if event.key==pygame.K_UP and p.y<2:
                 p.y+=1
-                getpos(p.x,p.y)
-                speak(f"{checkTile(p.x,p.y)}")
+                Grid.getpos(p.x,p.y)
+                speak(f"{Grid.checkTile(p.x,p.y)}")
             elif event.key==pygame.K_DOWN and p.y>0:
                 p.y-=1
-                getpos(p.x,p.y)
-                speak(f"{checkTile(p.x,p.y)}")
+                Grid.getpos(p.x,p.y)
+                speak(f"{Grid.checkTile(p.x,p.y)}")
             elif event.key==pygame.K_LEFT and p.x>0:
                 p.x-=1
-                getpos(p.x,p.y)
-                speak(f"{checkTile(p.x,p.y)}")
+                Grid.getpos(p.x,p.y)
+                speak(f"{Grid.checkTile(p.x,p.y)}")
             elif event.key==pygame.K_RIGHT and p.x<2:
                 p.x+=1
-                getpos(p.x,p.y)
-                speak(f"{checkTile(p.x,p.y)}")
+                Grid.getpos(p.x,p.y)
+                speak(f"{Grid.checkTile(p.x,p.y)}")
             elif event.key==pygame.K_RETURN:
-                placeObject(p.x,p.y,p.obj)
+                Grid.placeObject(p.x,p.y,p.obj)
                 if p==p1:
                     p=p2
                 else:
