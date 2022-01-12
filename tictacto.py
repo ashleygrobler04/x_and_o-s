@@ -35,10 +35,16 @@ def getpos(x,y):
     speak(f"{y+1}")
 
 class player:
-    def __init__(self):
+    def __init__(self, name, obj):
         self.x=0
         self.y=0
-p=player()
+        self.name=name
+        self.obj=obj
+p1=player('player1', 0)
+p2=player('player2', 1)
+p=p1
+
+
 running=True
 while running:
     time.sleep(0.02)
@@ -62,7 +68,12 @@ while running:
                 getpos(p.x,p.y)
                 speak(f"{checkTile(p.x,p.y)}")
             elif event.key==pygame.K_RETURN:
-                placeObject(p.x,p.y,0)
+                placeObject(p.x,p.y,p.obj)
+                if p==p1:
+                    p=p2
+                else:
+                    p=p1
+                speak(f"it's now {p.name}'s turn")
             if event.key==pygame.K_q:
                 pygame.QUIT()
                 quit()
