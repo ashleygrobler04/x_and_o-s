@@ -24,11 +24,11 @@ class menu:
                     if event.key == pygame.K_UP:
                         if self.focus>0:
                             self.focus=self.focus-1
-                        speak(self.items[self.focus])
+                            speak(self.items[self.focus])
                     if event.key == pygame.K_DOWN:
                         if len(self.items) > self.focus+1:
                             self.focus =self.focus+1
-                        speak(self.items[self.focus])
+                            speak(self.items[self.focus])
                     if event.key == pygame.K_RETURN:
                         return self.items[self.focus]
                     if event.key == pygame.K_ESCAPE:
