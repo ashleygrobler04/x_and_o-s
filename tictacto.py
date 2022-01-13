@@ -171,8 +171,7 @@ def start_game():
                         speak(f"it's now {p.name}'s turn")
                 if event.key==pygame.K_q:
                     running=False
-                    pygame.QUIT()
-                    quit()
+                    main_menu()
         winloop()
 
 main_menu()
