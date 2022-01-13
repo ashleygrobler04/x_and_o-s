@@ -30,7 +30,6 @@ class menu:
                             self.focus =self.focus+1
                         speak(self.items[self.focus])
                     if event.key == pygame.K_RETURN:
-                        self.focus=0
                         return self.items[self.focus]
                     if event.key == pygame.K_ESCAPE:
                         self.focus=0
