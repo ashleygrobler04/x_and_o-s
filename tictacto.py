@@ -51,8 +51,10 @@ class bord:
         if self.squares[x][y]==-1:
             self.squares[x][y]=type
             speak("Object placed.")
+            return True
         else:
             speak("Something's already on that square.")
+            return False
     def getpos(self, x,y):
         if x==0:
             speak("A")
@@ -124,7 +126,7 @@ def main_menu():
         choice=mainmenu.show_menu('select an option with up and down arrow keys. press enter to activate the option')
         if choice == 'play':
             start_game()
-        elif choice == 'exit' or choice == 'cancel':
+        else:
             pygame.quit()
             quit()
 p1=player('player1', 0)
@@ -161,12 +163,12 @@ def start_game():
                     Grid.getpos(p.x,p.y)
                     speak(f"{Grid.checkTile(p.x,p.y)}")
                 elif event.key==pygame.K_RETURN:
-                    Grid.placeObject(p.x,p.y,p.obj)
-                    if p==p1:
-                        p=p2
-                    else:
-                        p=p1
-                    speak(f"it's now {p.name}'s turn")
+                    if Grid.placeObject(p.x,p.y,p.obj):
+                        if p==p1:
+                            p=p2
+                        else:
+                            p=p1
+                        speak(f"it's now {p.name}'s turn")
                 if event.key==pygame.K_q:
                     running=False
                     pygame.QUIT()
