@@ -99,8 +99,8 @@ def winloop():
     o=[1,1,1]
     if horizontal1 == x or horizontal2 == x or horizontal3 == x or vertical1 == x or vertical2 == x or vertical3 == x or diagonal1 == x or diagonal2 == x:
         display_message('player1 is the winner')
-        running=False
         Grid.reset()
+        running=False
         p1.x=0
         p1.y=0
         p2.x=0
@@ -108,8 +108,8 @@ def winloop():
         p=p1
     elif horizontal1 == o or horizontal2 == o or horizontal3 == o or vertical1 == o or vertical2 == o or vertical3 == o or diagonal1 == o or diagonal2 == o:
         display_message('player2 is the winner')
-        running=False
         Grid.reset()
+        running=False
         p1.x=0
         p1.y=0
         p2.x=0
@@ -125,7 +125,7 @@ def main_menu():
         choice=mainmenu.show_menu('select an option with up and down arrow keys. press enter to activate the option')
         if choice == 'play':
             start_game()
-        if choice == 'exit' or choice == 'cancel':
+        elif choice == 'exit' or choice == 'cancel':
             pygame.quit()
             quit()
 p1=player('player1', 0)
@@ -169,9 +169,9 @@ def start_game():
                         p=p1
                     speak(f"it's now {p.name}'s turn")
                 if event.key==pygame.K_q:
+                    running=False
                     pygame.QUIT()
                     quit()
-                    running=False
         winloop()
 
 main_menu()
