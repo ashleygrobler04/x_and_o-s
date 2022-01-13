@@ -11,9 +11,10 @@ class sound:
         if not self.generator:
             self.generator=synthizer.BufferGenerator(ctx)
             self.generator.buffer.value=self.buffer
-            self.generator.config_delete_behavior(linger=True)
             self.source.add_generator(self.generator)
         else:
+            if self.generator.playback_position.value >= self.buffer.get_length_in_seconds():
+                    self.generator.playback_position.value=0
             self.source.play()
     def pause(self):
         self.source.pause()
