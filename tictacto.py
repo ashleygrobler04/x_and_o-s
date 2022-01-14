@@ -1,4 +1,4 @@
-version="0.1-BETA"
+version="0.1"
 import synthizer
 import time
 import sys
