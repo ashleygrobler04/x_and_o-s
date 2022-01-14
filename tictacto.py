@@ -64,15 +64,11 @@ def main_menu():
 p=p1
 
 def make_computer_move():
-    x=0
-    y=0
     positions=[]
-    while x<=2:
-        while y<=2:
+    for x in range(0,3):
+        for y in range(0,3):
             if Grid.checkTile(x,y) == 'empty':
                 positions.append((x,y))
-            y+=1
-        x+=1
     pos=random.choice(positions)
     Grid.placeObject(*pos, 1)
 
@@ -89,6 +85,7 @@ def start_game(computer=False):
         grid_moved.update_position(p.x,p.y)
         object_placed.update_position(p.x,p.y)
         pygame.display.update()
+        winloop()
         for event in pygame.event.get():
             if event.type==pygame.KEYDOWN:
                 if event.key==pygame.K_UP and p.y<2:
@@ -130,6 +127,5 @@ def start_game(computer=False):
                 if event.key==pygame.K_q:
                     running=False
                     main_menu()
-        winloop()
 if __name__ == "__main__":
     main_menu()
