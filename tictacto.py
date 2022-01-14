@@ -7,7 +7,7 @@ from sound import ctx, sound2d
 os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "hide"
 pygame.init()
 screen=pygame.display.set_mode((400,600))
-pygame.display.set_caption("2D Grid Testing")
+pygame.display.set_caption("Tic Tac Toe")
 Grid=bord.bord()
 p1=player.player("player 1", 0)
 p2=player.player("player 2", 1)
@@ -69,6 +69,9 @@ def make_computer_move():
         for y in range(0,3):
             if Grid.checkTile(x,y) == 'empty':
                 positions.append((x,y))
+                object_placed.stop()
+                object_placed.play()
+
     pos=random.choice(positions)
     Grid.placeObject(*pos, 1)
 
