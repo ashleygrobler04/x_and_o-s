@@ -19,5 +19,8 @@ class sound:
     def pause(self):
         self.source.pause()
     def stop(self):
-        self.source.remove_generator(self.generator)
-        self.generator=None
+        if self.generator:
+            self.source.remove_generator(self.generator)
+            self.generator=None
+        else:
+            pass

@@ -18,10 +18,12 @@ class menu:
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_UP and self.focus>0:
+                        self.scrolling_sound.stop()
                         self.scrolling_sound.play()
                         self.focus=self.focus-1
                         speech.speak(self.items[self.focus])
                     if event.key == pygame.K_DOWN and len(self.items) > self.focus+1:
+                        self.scrolling_sound.stop()
                         self.scrolling_sound.play()
                         self.focus =self.focus+1
                         speech.speak(self.items[self.focus])
