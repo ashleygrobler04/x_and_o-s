@@ -19,12 +19,12 @@ class menu:
                         self.scrolling_sound.stop()
                         self.scrolling_sound.play()
                         self.focus=self.focus-1
-                        speech.speak(self.items[self.focus])
+                        speech.speak(f"{self.items[self.focus]} {self.focus+1} of {len(self.items)}")
                     if event.key == pygame.K_DOWN and len(self.items) > self.focus+1:
                         self.scrolling_sound.stop()
                         self.scrolling_sound.play()
                         self.focus =self.focus+1
-                        speech.speak(self.items[self.focus])
+                        speech.speak(f"{self.items[self.focus]} {self.focus+1} of {len(self.items)}")
                     if event.key == pygame.K_RETURN:
                         self.enter_sound.play()
                         return self.items[self.focus]

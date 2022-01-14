@@ -2,7 +2,7 @@ import synthizer
 import time
 import random
 synthizer.initialize()
-import pygame, time, os, speech, bord, player, menu, display
+import pygame, time, os, speech, bord, player, menu, display, timer
 from sound import ctx, sound2d
 
 os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "hide"
@@ -14,7 +14,7 @@ p1=player.player("player 1", 0)
 p2=player.player("player 2", 1)
 grid_moved=sound2d(ctx, "sounds/grid_moved.flac")
 object_placed=sound2d(ctx, "sounds/object_placed.flac")
-
+computer_timer=timer.timer()
 
 
 def winloop():
@@ -137,8 +137,9 @@ def start_game(computer=False):
                                 p=p2
                             else:
                                 p=p1
-                        else:
+                        elif computer and computer_timer.elapsed>=1000:
                             make_computer_move()
+                            computer_timer.restart()
                             p=p1
                         speech.speak(f"it's now {p.name}'s turn")
                 if event.key == pygame.K_c:
