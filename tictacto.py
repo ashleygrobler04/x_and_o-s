@@ -74,6 +74,10 @@ def main_menu():
 p=p1
 
 def make_computer_move():
+    computer_timer.restart()
+    while computer_timer.elapsed <= 1000:
+        pygame.display.update()
+        pygame.event.get()
     positions=[]
     for x in range(0,3):
         for y in range(0,3):
@@ -87,6 +91,11 @@ def make_computer_move():
         object_placed.stop()
         object_placed.play()
         Grid.placeObject(*pos, 1)
+    computer_timer.restart()
+    while computer_timer.elapsed <= 1500:
+        pygame.display.update()
+        pygame.event.get()
+
 
 running=True
 def start_game(computer=False):
@@ -137,9 +146,8 @@ def start_game(computer=False):
                                 p=p2
                             else:
                                 p=p1
-                        elif computer and computer_timer.elapsed>=1000:
+                        else:
                             make_computer_move()
-                            computer_timer.restart()
                             p=p1
                         speech.speak(f"it's now {p.name}'s turn")
                 if event.key == pygame.K_c:
