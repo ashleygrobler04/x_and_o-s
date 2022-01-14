@@ -70,13 +70,14 @@ def make_computer_move():
         for y in range(0,3):
             if Grid.checkTile(x,y) == 'empty':
                 positions.append((x,y))
-    pos=random.choice(positions)
-    p2.x=pos[0]
-    p2.y=pos[1]
-    object_placed.update_position(p2.x, p2.y)
-    object_placed.stop()
-    object_placed.play()
-    Grid.placeObject(*pos, 1)
+    if len(positions) > 0:
+        pos=random.choice(positions)
+        p2.x=pos[0]
+        p2.y=pos[1]
+        object_placed.update_position(p2.x, p2.y)
+        object_placed.stop()
+        object_placed.play()
+        Grid.placeObject(*pos, 1)
 
 running=True
 def start_game(computer=False):
