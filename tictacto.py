@@ -1,4 +1,8 @@
+import synthizer
+synthizer.initialize()
 import pygame, time, os, speech, bord, player, menu, display
+from sound import ctx, sound2d
+
 os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "hide"
 pygame.init()
 screen=pygame.display.set_mode((400,600))
@@ -6,7 +10,8 @@ pygame.display.set_caption("2D Grid Testing")
 Grid=bord.bord()
 p1=player.player("player 1", 0)
 p2=player.player("player 2", 1)
-
+grid_moved=sound2d(ctx, "sounds/grid_moved.flac")
+object_placed=sound2d(ctx, "sounds/object_placed.flac")
 def winloop():
     global running
     horizontal1=Grid.squares[0]
@@ -62,6 +67,8 @@ def start_game():
         running=True
     while running:
         time.sleep(0.02)
+        grid_moved.update_position(p.x,p.y)
+        object_placed.update_position(p.x,p.y)
         pygame.display.update()
         for event in pygame.event.get():
             if event.type==pygame.KEYDOWN:
@@ -69,19 +76,29 @@ def start_game():
                     p.y+=1
                     Grid.getpos(p.x,p.y)
                     speech.speak(f"{Grid.checkTile(p.x,p.y)}")
+                    grid_moved.stop()
+                    grid_moved.play()
                 elif event.key==pygame.K_DOWN and p.y>0:
                     p.y-=1
                     Grid.getpos(p.x,p.y)
                     speech.speak(f"{Grid.checkTile(p.x,p.y)}")
+                    grid_moved.stop()
+                    grid_moved.play()
                 elif event.key==pygame.K_LEFT and p.x>0:
                     p.x-=1
                     Grid.getpos(p.x,p.y)
                     speech.speak(f"{Grid.checkTile(p.x,p.y)}")
+                    grid_moved.stop()
+                    grid_moved.play()
                 elif event.key==pygame.K_RIGHT and p.x<2:
                     p.x+=1
                     Grid.getpos(p.x,p.y)
                     speech.speak(f"{Grid.checkTile(p.x,p.y)}")
+                    grid_moved.stop()
+                    grid_moved.play()
                 elif event.key==pygame.K_RETURN:
+                    object_placed.stop()
+                    object_placed.play()
                     if Grid.placeObject(p.x,p.y,p.obj):
                         if p==p1:
                             p=p2

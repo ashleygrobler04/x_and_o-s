@@ -1,6 +1,4 @@
 import speech, pygame
-import synthizer
-synthizer.initialize()
 from sound import ctx, sound
 
 class menu:
