@@ -1,3 +1,4 @@
+version="0.1-BETA"
 import synthizer
 import time
 import random
@@ -8,7 +9,7 @@ from sound import ctx, sound2d
 os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "hide"
 pygame.init()
 screen=pygame.display.set_mode((400,600))
-pygame.display.set_caption("Tic Tac Toe")
+pygame.display.set_caption(f"Tic Tac Toe version {version}")
 Grid=bord.bord()
 p1=player.player("player 1", 0)
 p2=player.player("player 2", 1)
