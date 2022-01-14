@@ -1,6 +1,7 @@
 version="0.1-BETA"
 import synthizer
 import time
+import sys
 import random
 synthizer.initialize()
 import pygame, time, os, speech, bord, player, menu, display, timer
@@ -16,6 +17,11 @@ p2=player.player("player 2", 1)
 grid_moved=sound2d(ctx, "sounds/grid_moved.flac")
 object_placed=sound2d(ctx, "sounds/object_placed.flac")
 computer_timer=timer.timer()
+
+def exit():
+    pygame.quit()
+    synthizer.shutdown()
+    sys.exit()
 
 
 def winloop():
@@ -70,9 +76,9 @@ def main_menu():
         if choice == 'play human vs computer':
             start_game(computer=True)
         else:
-            pygame.quit()
-            quit()
+            exit()
 p=p1
+
 
 def make_computer_move():
     computer_timer.restart()
