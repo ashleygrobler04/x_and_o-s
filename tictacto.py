@@ -1,4 +1,5 @@
 import synthizer
+import random
 synthizer.initialize()
 import pygame, time, os, speech, bord, player, menu, display
 from sound import ctx, sound2d
@@ -12,6 +13,9 @@ p1=player.player("player 1", 0)
 p2=player.player("player 2", 1)
 grid_moved=sound2d(ctx, "sounds/grid_moved.flac")
 object_placed=sound2d(ctx, "sounds/object_placed.flac")
+
+
+
 def winloop():
     global running
     horizontal1=Grid.squares[0]
@@ -46,19 +50,34 @@ def winloop():
         pass
 
 def main_menu():
-    mainmenu=menu.menu(['play', 'exit'])
+    mainmenu=menu.menu(['play human vs human', 'play human vs computer', 'exit'])
     while 1:
         pygame.display.update()
         choice=mainmenu.show_menu('select an option with up and down arrow keys. press enter to activate the option')
-        if choice == 'play':
+        if choice == 'play human vs human':
             start_game()
+        if choice == 'play human vs computer':
+            start_game(computer=True)
         else:
             pygame.quit()
             quit()
 p=p1
 
+def make_computer_move():
+    x=0
+    y=0
+    positions=[]
+    while x<=2:
+        while y<=2:
+            if Grid.checkTile(x,y) == 'empty':
+                positions.append((x,y))
+            y+=1
+        x+=1
+    pos=random.choice(positions)
+    Grid.placeObject(*pos, 1)
+
 running=True
-def start_game():
+def start_game(computer=False):
     global running
     global p1
     global p2
@@ -100,14 +119,17 @@ def start_game():
                     object_placed.stop()
                     object_placed.play()
                     if Grid.placeObject(p.x,p.y,p.obj):
-                        if p==p1:
-                            p=p2
+                        if not computer:
+                            if p==p1:
+                                p=p2
+                            else:
+                                p=p1
                         else:
-                            p=p1
+                            make_computer_move()
                         speech.speak(f"it's now {p.name}'s turn")
                 if event.key==pygame.K_q:
                     running=False
                     main_menu()
         winloop()
-
-main_menu()
+if __name__ == "__main__":
+    main_menu()
