@@ -47,6 +47,15 @@ def winloop():
         p2.x=0
         p2.y=0
         p=p1
+    elif not -1 in Grid.squares[0] and not -1 in Grid.squares[1] and not -1 in Grid.squares[2]:
+        display.display_message("It's a tie!")
+        Grid.reset()
+        running=False
+        p1.x=0
+        p1.y=0
+        p2.x=0
+        p2.y=0
+        p=p1
     else:
         pass
 
@@ -132,6 +141,8 @@ def start_game(computer=False):
                             make_computer_move()
                             p=p1
                         speech.speak(f"it's now {p.name}'s turn")
+                if event.key == pygame.K_c:
+                    speech.speak(f"it's now {p.name}'s chance")
                 if event.key==pygame.K_q:
                     running=False
                     main_menu()
