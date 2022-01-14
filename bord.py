@@ -1,4 +1,7 @@
 import speech
+
+
+
 class bord:
     def __init__(self):
         self.squares=[[-1,-1,-1], [-1,-1,-1], [-1,-1,-1]]

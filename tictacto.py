@@ -1,4 +1,5 @@
 import synthizer
+import time
 import random
 synthizer.initialize()
 import pygame, time, os, speech, bord, player, menu, display
@@ -69,10 +70,12 @@ def make_computer_move():
         for y in range(0,3):
             if Grid.checkTile(x,y) == 'empty':
                 positions.append((x,y))
-                object_placed.stop()
-                object_placed.play()
-
     pos=random.choice(positions)
+    p2.x=pos[0]
+    p2.y=pos[1]
+    object_placed.update_position(p2.x, p2.y)
+    object_placed.stop()
+    object_placed.play()
     Grid.placeObject(*pos, 1)
 
 running=True
@@ -126,6 +129,7 @@ def start_game(computer=False):
                                 p=p1
                         else:
                             make_computer_move()
+                            p=p1
                         speech.speak(f"it's now {p.name}'s turn")
                 if event.key==pygame.K_q:
                     running=False
