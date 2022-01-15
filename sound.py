@@ -29,7 +29,7 @@ class sound:
 class sound2d(sound):
     def __init__(self, ctx, file, default_x=0, default_y=0):
         self.ctx=ctx
-        self.source=synthizer.Source3D(self.ctx)
+        self.source=synthizer.Source3D(self.ctx, synthizer.PannerStrategy.HRTF)
         self.generator=None
         self.buffer=synthizer.Buffer.from_file(file)
         self.source.position.value=(default_x, default_y, 0)
