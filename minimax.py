@@ -1,6 +1,6 @@
 def moves_left(bord):
     for x in range(3):
-        for y in range(0,3):
+        for y in range(3):
             if bord.squares[x][y] == -1:
                 return True
         return False
@@ -27,12 +27,12 @@ def minimax(bord, depth, is_max):
     if abs(score) == 10: return score
     if not moves_left(bord): return 0
     if is_max:
-        best=-100
+        best=-1000
         for x in range(3):
             for y in range(3):
                 if bord.squares[x][y] == -1:
                     bord.squares[x][y]=1
-                    best = max(best, minimax(bord, depth+1, not is_max))
+                    best = max(best, minimax(bord, depth+1, not is_max))-depth
                     bord.squares[x][y]=-1
         return best
     else:
@@ -41,13 +41,13 @@ def minimax(bord, depth, is_max):
             for y in range(3):
                 if bord.squares[x][y] == -1:
                     bord.squares[x][y]=0
-                    best=min(best,minimax(bord, depth+1, not is_max))
+                    best=min(best,minimax(bord, depth+1, not is_max))+depth
                     bord.squares[x][y]=-1
         return best
 
 def predict_best_move(bord):
     best_val=-1000
-    best_move=()
+    best_move=(-1,-1)
     for x in range(3):
         for y in range(3):
             if bord.squares[x][y] == -1:
