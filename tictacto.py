@@ -99,6 +99,8 @@ def make_computer_move(difficult=True):
         pos=predict_best_move(Grid)
     p2.x=pos[0]
     p2.y=pos[1]
+    if not moves_left(Grid):
+        return
     object_placed.update_position(p2.x, p2.y)
     object_placed.stop()
     object_placed.play()
@@ -131,7 +133,6 @@ def start_game(computer=False):
         grid_moved.update_position(p.x,p.y)
         object_placed.update_position(p.x,p.y)
         pygame.display.update()
-        winloop()
         for event in pygame.event.get():
             if event.type==pygame.KEYDOWN:
                 if event.key==pygame.K_UP and p.y<2:
@@ -176,5 +177,6 @@ def start_game(computer=False):
                 if event.key==pygame.K_q:
                     running=False
                     main_menu()
+        winloop()
 if __name__ == "__main__":
     main_menu()
