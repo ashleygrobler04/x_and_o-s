@@ -1,0 +1,6 @@
+What's new?
+V0.2.0:
+Added a harder computer to play against. You asked for it! You can find it in the main menu.
+
+V0.1.0:
+First release.
