@@ -3,7 +3,7 @@ def moves_left(bord):
         for y in range(3):
             if bord.squares[x][y] == -1:
                 return True
-        return False
+    return False
 
 def evaluate(bord):
     horizontal1=bord.squares[0]
