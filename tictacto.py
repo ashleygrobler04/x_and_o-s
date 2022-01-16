@@ -3,9 +3,11 @@ import synthizer
 import time
 import sys
 import random
+
 synthizer.initialize()
 import pygame, time, os, speech, bord, player, menu, display, timer
 from sound import ctx, sound2d
+from minimax import *
 
 os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "hide"
 pygame.init()
@@ -80,24 +82,27 @@ def main_menu():
 p=p1
 
 
-def make_computer_move():
+def make_computer_move(difficult=True):
     computer_timer.restart()
     while computer_timer.elapsed <= 1000:
         pygame.display.update()
         pygame.event.get()
-    positions=[]
-    for x in range(0,3):
-        for y in range(0,3):
-            if Grid.checkTile(x,y) == 'empty':
-                positions.append((x,y))
-    if len(positions) > 0:
-        pos=random.choice(positions)
-        p2.x=pos[0]
-        p2.y=pos[1]
-        object_placed.update_position(p2.x, p2.y)
-        object_placed.stop()
-        object_placed.play()
-        Grid.placeObject(*pos, 1)
+    if not difficult:
+        positions=[]
+        for x in range(0,3):
+            for y in range(0,3):
+                if Grid.checkTile(x,y) == 'empty':
+                    positions.append((x,y))
+        if len(positions) > 0:
+            pos=random.choice(positions)
+    else:
+        pos=predict_best_move(Grid)
+    p2.x=pos[0]
+    p2.y=pos[1]
+    object_placed.update_position(p2.x, p2.y)
+    object_placed.stop()
+    object_placed.play()
+    Grid.placeObject(*pos, 1)
     computer_timer.restart()
     while computer_timer.elapsed <= 1500:
         pygame.display.update()
