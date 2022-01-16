@@ -99,16 +99,15 @@ def make_computer_move(difficult=True):
         pos=predict_best_move(Grid)
     p2.x=pos[0]
     p2.y=pos[1]
-    if not moves_left(Grid):
-        return
-    object_placed.update_position(p2.x, p2.y)
-    object_placed.stop()
-    object_placed.play()
-    Grid.placeObject(*pos, 1)
-    computer_timer.restart()
-    while computer_timer.elapsed <= 1500:
-        pygame.display.update()
-        pygame.event.get()
+    if moves_left(Grid):
+        object_placed.update_position(p2.x, p2.y)
+        object_placed.stop()
+        object_placed.play()
+        Grid.placeObject(*pos, 1)
+        computer_timer.restart()
+        while computer_timer.elapsed <= 1500:
+            pygame.display.update()
+            pygame.event.get()
 
 
 running=True
