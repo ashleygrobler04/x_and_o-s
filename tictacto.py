@@ -1,4 +1,4 @@
-version="0.1"
+version="0.2.0"
 import synthizer
 import time
 import sys
@@ -99,14 +99,15 @@ def make_computer_move(difficult=True):
         pos=predict_best_move(Grid)
     p2.x=pos[0]
     p2.y=pos[1]
-    object_placed.update_position(p2.x, p2.y)
-    object_placed.stop()
-    object_placed.play()
-    Grid.placeObject(*pos, 1)
-    computer_timer.restart()
-    while computer_timer.elapsed <= 1500:
-        pygame.display.update()
-        pygame.event.get()
+    if moves_left(Grid):
+        object_placed.update_position(p2.x, p2.y)
+        object_placed.stop()
+        object_placed.play()
+        Grid.placeObject(*pos, 1)
+        computer_timer.restart()
+        while computer_timer.elapsed <= 1500:
+            pygame.display.update()
+            pygame.event.get()
 
 
 running=True
@@ -115,6 +116,15 @@ def start_game(computer=False):
     global p1
     global p2
     global p
+    if computer:
+        m=menu.menu(['normal', 'difficult', 'go back'])
+        choice=m.show_menu('select difficulty level')
+        if choice == 'normal':
+            difficult=False
+        elif choice == 'difficult':
+            difficult=True
+        else:
+            return
     if not running:
         running=True
     while running:
@@ -122,7 +132,6 @@ def start_game(computer=False):
         grid_moved.update_position(p.x,p.y)
         object_placed.update_position(p.x,p.y)
         pygame.display.update()
-        winloop()
         for event in pygame.event.get():
             if event.type==pygame.KEYDOWN:
                 if event.key==pygame.K_UP and p.y<2:
@@ -159,7 +168,7 @@ def start_game(computer=False):
                             else:
                                 p=p1
                         else:
-                            make_computer_move()
+                            make_computer_move(difficult)
                             p=p1
                         speech.speak(f"it's now {p.name}'s turn")
                 if event.key == pygame.K_c:
@@ -167,5 +176,6 @@ def start_game(computer=False):
                 if event.key==pygame.K_q:
                     running=False
                     main_menu()
+        winloop()
 if __name__ == "__main__":
     main_menu()
