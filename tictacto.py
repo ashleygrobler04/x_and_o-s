@@ -115,6 +115,15 @@ def start_game(computer=False):
     global p1
     global p2
     global p
+    if computer:
+        m=menu.menu(['normal', 'difficult', 'go back'])
+        choice=m.show_menu('select difficulty level')
+        if choice == 'normal':
+            difficult=False
+        elif choice == 'difficult':
+            difficult=True
+        else:
+            return
     if not running:
         running=True
     while running:
@@ -159,7 +168,7 @@ def start_game(computer=False):
                             else:
                                 p=p1
                         else:
-                            make_computer_move()
+                            make_computer_move(difficult)
                             p=p1
                         speech.speak(f"it's now {p.name}'s turn")
                 if event.key == pygame.K_c:
