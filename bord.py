@@ -14,9 +14,15 @@ class bord:
             return "o"
 
     def placeObject(self, x,y,type):
+        horizontal=None
+        vertical=None
         if self.squares[x][y]==-1:
             self.squares[x][y]=type
-            speech.speak("Object placed.")
+            if x == 0: horizontal='a'
+            elif x == 1: horizontal='b'
+            elif x == 2: horizontal = 'c'
+            vertical=f'{y+1}'
+            speech.speak(f"Object placed at {horizontal}{vertical}.")
             return True
         else:
             speech.speak("Something's already on that square.")
