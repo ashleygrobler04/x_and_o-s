@@ -1,4 +1,6 @@
 What's new?
+V0.2.1:
+Now announces which object is placed at which position.
 V0.2.0:
 Added a harder computer to play against. You asked for it! You can find it in the main menu.
 
