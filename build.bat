@@ -8,7 +8,7 @@ if not exist build\ (
     md build\tictacto\sounds
     )
 echo building
-python -m nuitka --quiet --standalone --python-flag=no_site --user-plugin=CytolkPlugin.py --windows-disable-console --windows-force-stderr=%program%\tictacto.log --windows-force-stdout=%program%\tictacto.log tictacto.py
+python -m nuitka --quiet --standalone --python-flag=no_site --user-plugin=CytolkPlugin.py --windows-disable-console --windows-force-stderr=%program%tictacto.log --windows-force-stdout=%program%tictacto.log tictacto.py
 xcopy /E /I /Q tictacto.dist build\tictacto
 echo build completed
 echo copying required data files
